@@ -14,7 +14,7 @@ pipeline {
         stage('Build docker image'){
             steps{
                 script{
-                    bat 'docker build -t devopsintegration .'
+                    bat 'docker build -t bk1236/devopsintegration:latest .'
                 }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'DOCKERHUB_PWD')]) {
                                    bat '''
                                    echo %DOCKERHUB_PWD% | docker login -u bk1236 --password-stdin
-                                   docker push bk1236/devopsintegration
+                                   docker push bk1236/devopsintegration:latest
                                    '''
                     }
                 }
