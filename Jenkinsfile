@@ -1,9 +1,10 @@
+// Pipeline uses bat command and some specific code are modified to work on windows as jenkins run in local
 pipeline {
     agent any
     tools{
         maven 'maven_3_5_0'
     }
-    stages{
+   stages{
         stage('Build Maven'){
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/bharathi1236/devopsAutomation']]])
@@ -20,11 +21,12 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
-                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   bat 'docker login -u bk1236 -p ${dockerhubpwd}'
-
-                }
-                   sh 'docker push devopsintegration'
+                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'DOCKERHUB_PWD')]) {
+                                   bat '''
+                                   echo %DOCKERHUB_PWD% | docker login -u bk1236 --password-stdin
+                                   docker push devopsintegration
+                                   '''
+                    }
                 }
             }
         }
