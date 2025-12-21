@@ -24,7 +24,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'DOCKERHUB_PWD')]) {
                                    bat '''
                                    echo %DOCKERHUB_PWD% | docker login -u bk1236 --password-stdin
-                                   docker push devopsintegration
+                                   docker push bk1236/devopsintegration
                                    '''
                     }
                 }
