@@ -10,13 +10,13 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
-//         stage('Build docker image'){
-//             steps{
-//                 script{
-//                     sh 'docker build -t javatechie/devops-integration .'
-//                 }
-//             }
-//         }
+        stage('Build docker image'){
+            steps{
+                script{
+                    sh 'docker build -t devopsIntegration .'
+                }
+            }
+        }
 //         stage('Push image to Hub'){
 //             steps{
 //                 script{
